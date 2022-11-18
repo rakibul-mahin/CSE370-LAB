@@ -1,0 +1,70 @@
+CSE370
+LAB ASSIGNMENT 4
+Mohammad Rakibul Hasan Mahin
+20201220
+Section: 8
+
+Asnwer To Question 1
+SELECT customer_name, B.loan_number
+	FROM customer C, 
+	borrower B, 
+	loan L 
+	WHERE C.customer_id = B.customer_id 
+	AND L.loan_number = B.loan_number 
+	AND L.branch_name = "Downtown";
+
+Asnwer To Question 2
+SELECT C1.customer_name AS Customer1, C2.customer_name AS Customer2, C1.customer_city AS City 
+	FROM customer C1, 
+	customer C2 
+	WHERE C1.customer_city = C2.customer_city 
+	AND C1.customer_name != C2.customer_name 
+	GROUP BY City;
+
+Asnwer To Question 3
+SELECT branch_name, SUM(balance * 0.04) AS total_interest 
+	FROM account 
+	GROUP BY branch_name;
+
+Asnwer To Question 4
+SELECT A.account_number, B.branch_city, MAX(A.balance) AS highest_balances 
+	FROM account A, 
+	branch B 
+	WHERE A.branch_name = B.branch_name 
+	GROUP BY B.branch_city;
+
+Asnwer To Question 5
+SELECT L.loan_number, L.amount, customer_name 
+	FROM customer C, 
+	borrower B, 
+	loan L 
+	WHERE C.customer_id = B.customer_id 
+	AND L.loan_number = B.loan_number 
+	ORDER BY L.amount DESC, 
+	L.loan_number ASC LIMIT 5;
+
+Asnwer To Question 6
+SELECT customer_name 
+	FROM customer C, 
+	depositor D, 
+	account A 
+	WHERE C.customer_id = D.customer_id 
+	AND A.account_number = D.account_number 
+	AND A.branch_name = "Perryridge" 
+	AND C.customer_id IN 
+	(SELECT C.customer_id 
+		FROM customer C, 
+		borrower B, 
+		loan L 
+		WHERE C.customer_id = B.customer_id 
+		AND L.loan_number = B.loan_number 
+		AND L.branch_name = "Perryridge");
+
+Asnwer To Question 7
+SELECT customer_name, B.customer_id, SUM(L.amount) AS total_loan_amount 
+	FROM loan L, 
+	borrower B, 
+	customer C 
+	WHERE B.loan_number = L.loan_number 
+	AND C.customer_id = B.customer_id 
+	GROUP BY C.customer_id HAVING COUNT(C.customer_id) = 2;

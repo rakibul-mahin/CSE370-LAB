@@ -1,0 +1,23 @@
+CSE370
+LAB ASSIGNMENT 2
+Mohammad Rakibul Hasan Mahin
+20201220
+Section: 8
+
+Answer to Question 1:
+select joining_date from employee group by joining_date asc;
+
+Answer to Question 2:
+select name, email from employee order by followers desc limit 0, 5;
+
+Answer to Question 3:
+select multiplier, count(*) as num_of_developers_in_multiplier from employee group by multiplier;
+
+Answer to Question 4:
+select name, max(multiplier) from employee where followers < 700000;
+
+Answer to Question 5:
+select avg(followers) from employee where joining_date < '2020-06-11';
+
+Answer to Question 6:
+select member_id, name, email, followers from employee where email like '%.com' or email like '%.net';

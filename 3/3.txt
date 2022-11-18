@@ -1,0 +1,26 @@
+CSE370
+LAB ASSIGNMENT 3
+Mohammad Rakibul Hasan Mahin
+20201220
+Section: 8
+
+Asnwer To Question 1
+Select first_name, last_name, email, phone_number, hire_date, department_id from employee where hire_date = (select max(hire_date) from employee);
+
+Answer To Question 2
+Select first_name, last_name, employee_id, phone_number, salary, department_id from employee where (department_id, salary) in (select department_id, min(salary) from employee group by department_id);
+
+Answer To Question 3
+Select first_name, last_name, employee_id, commission_pct, department_id from employee where department_id = 7 and commision_pct < all(select commission_pct from employee where department_id = 5);
+
+Answer To Question 4
+Select distinct department_id from employee L1 where not exists (select * from employee L2 where L1.department_id = L2.department_id and L2.salary >30000);
+
+Answer To Question 5
+Select department_id , job_id, commission_pct from employee L1 where exists (select * from employee L2 where L1.department_id = L2.department_id and L1.job_id != L2.job_id and L1.commission_pct < L2.commission_pct);
+
+Answer To Question 6
+Select distinct manager_id from employee L1 where not exist (Select * from employee L2 where L1.manager_id = L2.manager_id and L2.salary <3500);
+
+Answer To Question 7
+Select first_name, last_name, employee_id, email, salary, department_id, commission_pct from employee where (manger_id, commission_pct) in (select manager_id, min(commission_pct) from employee group by manager_id);
